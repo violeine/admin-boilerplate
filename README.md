@@ -1,1 +1,1 @@
-Guong Thong Minh UIT Adminpage
+#admin-boilerplate with react redux

@@ -2,7 +2,7 @@ import axios from "axios";
 import { get, save } from "./localStorage";
 import { history } from "../App";
 const instance = axios.create({
-  baseURL: "http://mirror.hsvuit.org/apis/"
+  baseURL: "127.0.0.1"
 });
 // ADD Token into Headers
 instance.interceptors.request.use(
@@ -20,7 +20,7 @@ instance.interceptors.request.use(
 const getNewTokenAndReattemptRequest = async (config, refToken) => {
   try {
     console.log(refToken);
-    const getNewToken = await axios.post("http://mirror.hsvuit.org/apis/users/token", {
+    const getNewToken = await axios.post("127.0.0.1/users/token", {
       refreshtoken: refToken
     });
     console.log(getNewToken);
@@ -48,7 +48,8 @@ instance.interceptors.response.use(
     if (status === 401) {
       console.log("hello from refresh");
       const refreshToken = get("refreshToken");
-      if (refreshToken) return getNewTokenAndReattemptRequest(config, refreshToken);
+      if (refreshToken)
+        return getNewTokenAndReattemptRequest(config, refreshToken);
       else {
         history.push("/login");
         window.location.reload();
